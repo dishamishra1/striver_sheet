@@ -1,0 +1,51 @@
+class Solution {
+  public:
+    int findKRotation(vector<int> &arr) {
+
+        int low=0;
+        int n= arr.size();
+        int high= n-1;
+        int ans= INT_MAX;
+        int index=-1;
+
+        while(low<=high)
+        {
+            int mid=(low+high)/2;
+
+            // If whole segment is sorted
+            if(arr[low] <= arr[high])
+            {
+                if(arr[low] < ans)
+                {
+                    ans = arr[low];
+                    index = low;
+                }
+                break;   // correct
+            }
+
+            // Left half sorted
+            if(arr[low] <= arr[mid])
+            {
+                if(arr[low] < ans)
+                {
+                    ans = arr[low];
+                    index = low;
+                }
+                low = mid + 1;
+            }
+
+            // Right half sorted
+            else
+            {
+                if(arr[mid] < ans)
+                {
+                    ans = arr[mid];
+                    index = mid;
+                }
+                high = mid - 1;
+            }
+        }
+
+        return index;
+    }
+};
